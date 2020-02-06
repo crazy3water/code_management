@@ -8,7 +8,6 @@ BASE_DIR = r'G:\command_study\tianchi1/'
 Data = pd.read_csv(BASE_DIR + "DataSet/drop1112_sub_item.csv")
 Data['daystime'] = Data['days'].map(lambda x: time.strptime(x, "%Y-%m-%d")).map(lambda x: datetime.datetime(*x[:6]))
 
-
 if __name__ == '__main__':
     print('---------------读取数据--------------')
     train_set = pd.read_csv(r'../result/train_train_no_jiagou.csv')

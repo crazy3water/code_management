@@ -5,6 +5,7 @@ import sys
 import time
 import xgboost as xgb
 from Feature.add_feture import *
+from Feature.add_new_features import *
 FEATURE_EXTRACTION_SLOT = 10
 LabelDay = datetime.datetime(2014,12,18,0,0,0)
 BASE_DIR = r'G:\command_study\tianchi1/'
@@ -341,10 +342,14 @@ if __name__ == '__main__':
             train_user_window1 = Data[(Data['daystime'] > (LabelDay - datetime.timedelta(days=FEATURE_EXTRACTION_SLOT))) & (Data['daystime'] < LabelDay)]
 #        train_user_window1 = Data[(Data['daystime'] > (LabelDay - datetime.timedelta(days=FEATURE_EXTRACTION_SLOT))) & (Data['daystime'] < LabelDay)]
         beforeoneday = Data[Data['daystime'] == (LabelDay-datetime.timedelta(days=1))]
+
         # beforetwoday = Data[(Data['daystime'] >= (LabelDay-datetime.timedelta(days=2))) & (Data['daystime'] < LabelDay)]
         # beforefiveday = Data[(Data['daystime'] >= (LabelDay-datetime.timedelta(days=5))) & (Data['daystime'] < LabelDay)]
-        #得到 x 的训练集，其中将 前一天的用户的行为与后一天的购买行为进行标签：如果购买了则为true，否则为false
+        #得到 x 的训练集，其中将 所有的用户的行为与labelDay的购买行为进行标签：如果购买了则为true，否则为false
         x = get_train(Data, LabelDay)
+        #新的特征
+        beforeoneday = del_buied(beforeoneday)
+
         add_user_click_1 = user_click(beforeoneday)
         add_user_item_click_1 = user_item_click(beforeoneday)
         add_user_cate_click_1 = user_cate_click(beforeoneday)
@@ -388,6 +393,7 @@ if __name__ == '__main__':
 
     train_user_window1 =  Data[(Data['daystime'] > (LabelDay - datetime.timedelta(days=FEATURE_EXTRACTION_SLOT-1))) & (Data['daystime'] <= LabelDay)]
     beforeoneday = Data[Data['daystime'] == LabelDay]
+    beforeoneday = del_buied(beforeoneday)
     # beforetwoday = Data[(Data['daystime'] >= (LabelDay-datetime.timedelta(days=2))) & (Data['daystime'] < LabelDay)]
     # beforefiveday = Data[(Data['daystime'] >= (LabelDay-datetime.timedelta(days=5))) & (Data['daystime'] < LabelDay)]
     add_user_click = user_click(beforeoneday)

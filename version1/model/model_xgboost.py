@@ -46,7 +46,7 @@ if __name__ == '__main__':
     #    # 保存到文件
     #    predict1.to_csv("../result/10_30_2/650_1B80minchildweight1.8.csv", index=False)
 
-    predict2 = predicted.iloc[:700, [0, 1]]
+    predict2 = predicted.iloc[:900, [0, 1]]
     # 保存到文件
     predict2.to_csv("../result/tianchi_mobile_recommendation_predict.csv", index=False)
 
